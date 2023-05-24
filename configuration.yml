@@ -1,0 +1,7 @@
+app_port: 8000
+database:
+  host: localhost
+  port: 3306
+  username: root
+  password: 123456
+  database_name: demmo_service
