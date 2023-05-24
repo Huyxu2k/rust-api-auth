@@ -1,4 +1,2 @@
 # rust-service-actix-sqlx
----Sqlx-Cli
----Actix-Web
----Mysql
+use Sqlx,Actix-Web,Mysql
