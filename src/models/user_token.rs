@@ -6,6 +6,7 @@ use serde::{Deserialize,Serialize};
 
 pub static KEY: &[u8]="271111".as_bytes();
 static ONE_WEEK: i64 = 60 * 60 * 24 * 7; // in seconds
+static ONE_MINUTE: i64 = 60; // in seconds
 
 #[derive(Debug,Deserialize,Serialize,Clone)]
 pub struct  UserToken{

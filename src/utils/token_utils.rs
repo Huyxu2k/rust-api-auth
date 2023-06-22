@@ -1,4 +1,4 @@
-use jsonwebtoken::{DecodingKey, TokenData, Validation};
+use jsonwebtoken::{DecodingKey, TokenData, Validation,decode, Algorithm};
 use sqlx::MySqlPool;
 use  crate::{
     models::{
@@ -7,10 +7,10 @@ use  crate::{
 };
 
 pub fn decode_token(token:String)->jsonwebtoken::errors::Result<TokenData<UserToken>>{
-    jsonwebtoken::decode::<UserToken>(
+    decode::<UserToken>(
              &token,
              &DecodingKey::from_secret(&KEY),
-             &Validation::default()
+             &Validation::default(),//new(Algorithm::HS256)
             )
 }
 pub async fn verify_token(token_data:&TokenData<UserToken>,pool:MySqlPool)->Result<String,String>{

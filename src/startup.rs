@@ -11,7 +11,7 @@ use std::net::TcpListener;
 
 use actix_cors::Cors;
 
-use crate::app;
+use crate::config::app;
 use crate::middleware::auth_middleware::Authentication;
 
 pub fn run(listener: TcpListener, db_pool: MySqlPool) -> Result<Server, std::io::Error> {

@@ -42,3 +42,13 @@ pub async fn logout(req: HttpRequest, pool: web::Data<MySqlPool>) -> Result<Http
         Ok(HttpResponse::BadRequest().json(ResponseBody::new("Token Missing".to_string(), "")))
     }
 }
+
+//GET api/auth/profile
+pub async fn getuserbyusername(req: HttpRequest,pool: web::Data<MySqlPool>)->Result<HttpResponse>{
+    if let Some(auth_header) = req.headers().get("Authorization") {
+       let user= user_service::getuserbyusername(auth_header.clone(), pool.get_ref().to_owned()).await.ok();
+        Ok(HttpResponse::Ok().json(ResponseBody::new("Success".to_string(), user)))
+    } else {
+        Ok(HttpResponse::BadRequest().json(ResponseBody::new("Token Missing".to_string(), "")))
+    }
+}

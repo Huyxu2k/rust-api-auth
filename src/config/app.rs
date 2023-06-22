@@ -24,6 +24,9 @@ pub fn config(cf: &mut web::ServiceConfig) {
                         .service(
                             web::resource("/logout").route(web::post().to(user_controller::logout)),
                         )
+                        .service(
+                            web::resource("/profile").route(web::get().to(user_controller::getuserbyusername))
+                        )
                     )
                     // .service(
 

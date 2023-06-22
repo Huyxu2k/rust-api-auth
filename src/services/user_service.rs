@@ -61,15 +61,31 @@ pub async fn login(user:LoginDTO,pool:MySqlPool)->Result<TokenBodyResponse,Servi
        ),
    }
 }
+//TODO error
 pub async fn logout(authen_header:HeaderValue,pool:MySqlPool)->Result<(),ServiceError>{
     if let Ok(authen_str)=authen_header.to_str(){
-        if authen_str.starts_with("bearer"){
+        if authen_str.starts_with("Bearer"){
             let token=authen_str[6..authen_str.len()].trim();
             if let Ok(token_data)=token_utils::decode_token(token.to_string()){
                 if let Ok(user_name)=token_utils::verify_token(&token_data, pool.clone()).await{
                     if let Ok(user)=User::find_user_by_username(user_name, pool.clone()).await{
                         User::logout(user.id,pool).await;
                         return Ok(());
+                    }
+                }
+            }
+        }
+    }
+    Err(ServiceError::new(StatusCode::INTERNAL_SERVER_ERROR, "Error while processing token".to_string()))
+}
+pub async fn getuserbyusername(authen_header:HeaderValue,pool:MySqlPool)->Result<User,ServiceError>{
+    if let Ok(authen_str)=authen_header.to_str(){
+        if authen_str.starts_with("Bearer"){
+            let token=authen_str[6..authen_str.len()].trim();
+            if let Ok(token_data)=token_utils::decode_token(token.to_string()){
+                if let Ok(user_name)=token_utils::verify_token(&token_data, pool.clone()).await{
+                    if let Ok(user)=User::find_user_by_username(user_name, pool.clone()).await{
+                        return Ok(user);
                     }
                 }
             }

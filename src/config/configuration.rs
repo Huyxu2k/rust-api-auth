@@ -22,7 +22,7 @@ pub fn get_configuration()->Result<Settings,config::ConfigError>
 
   setting.try_deserialize()
 }
-
+//not use
 impl DatabaseSettings {
     pub fn connection_string(&self)->String
     {

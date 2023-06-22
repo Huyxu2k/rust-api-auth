@@ -1,5 +1,5 @@
 use log::info;
-use news_service_rust::configuration::get_configuration;
+use news_service_rust::config::configuration::get_configuration;
 use news_service_rust::startup::run;
 use sqlx::mysql::MySqlPoolOptions;
 use sqlx::MySqlPool;

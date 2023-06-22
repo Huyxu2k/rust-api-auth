@@ -51,7 +51,7 @@ impl User{
     pub async fn signup(user_o:NewUser,pool:MySqlPool)->Result<String,String>{
         let user_find=Self::find_user_by_username(user_o.user_name.clone(), pool.clone()).await;
             match user_find {
-                Ok(user_find )=>{
+                Ok(user_find)=>{
                     Err(format!("User '{}' is already registered", &user_o.user_name))
                 },
                 Err(_) => {
@@ -119,7 +119,7 @@ impl User{
             None=> return None,
         }
     }
-
+    
     //logout
     pub async fn logout(user_id:i32,pool:MySqlPool){
           let query_str=format!("select * from users where id={}",user_id);
@@ -202,7 +202,7 @@ impl User{
                                             })
                                             .fetch_one(&pool.clone())
                                             .await;                                                                
-       user                                        
+       user                        
     }
 
 }
